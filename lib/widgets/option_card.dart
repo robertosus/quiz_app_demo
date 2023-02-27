@@ -11,16 +11,19 @@ class OptionCard extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: color,
-      child: ListTile(
-        title: Text(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        border: Border.all(color: color, width: 4),
+      ),
+      width: 160,
+      height: 110,
+      child: Center(
+        child: Text(
           option,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 18.0,
-            color: color.red != color.green ? neutral : Colors.black,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
     );

@@ -23,7 +23,7 @@ class ResultBox extends StatelessWidget {
           children: [
             const Text(
               'Result',
-              style: TextStyle(color: neutral, fontSize: 22.0),
+              style: TextStyle(fontSize: 22.0),
             ),
             const SizedBox(height: 20.0),
             CircleAvatar(
@@ -45,7 +45,6 @@ class ResultBox extends StatelessWidget {
                   : result < questionLength / 2
                       ? 'Try Again ?'
                       : 'Great!',
-              style: const TextStyle(color: neutral),
             ),
             const SizedBox(height: 25.0),
             GestureDetector(

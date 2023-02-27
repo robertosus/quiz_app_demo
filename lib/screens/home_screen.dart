@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Question(
       title:
           'Method pada stateFul widget yang untuk menghancurkan object saat aplikasi tidak digunakan?',
+      image: 'assets/question1.png',
       desc:
           'DISPOSE: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium',
       options: {
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Question(
       title: 'Method pada stateFul widget yang hanya dijalankan sekali?',
+      image: 'assets/logo.png',
       desc:
           'INIT STATE: But I must explain to you how all this mistaken idea of denouncing',
       options: {
@@ -102,72 +104,66 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: background,
-      appBar: AppBar(
-        title: const Text('Quiz App'),
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: background,
-        shadowColor: Colors.transparent,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Text(
-              'Score: $score',
-              style: const TextStyle(fontSize: 18.0),
-            ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 30),
+              Image.asset('assets/logo.png', width: 50),
+              QuestionWidget(
+                indexAction: index,
+                question: _questions[index].title,
+                imageQuestion: _questions[index].image,
+                totalQuestions: _questions.length,
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: SizedBox(
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    primary: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 24,
+                    crossAxisSpacing: 22,
+                    crossAxisCount: 2,
+                    children: [
+                      for (int i = 0; i < _questions[index].options.length; i++)
+                        GestureDetector(
+                          onTap: () => checkAnswerAndUpdate(
+                            _questions[index].options.values.toList()[i],
+                            _questions[index].options.keys.toList()[i],
+                          ),
+                          child: OptionCard(
+                            option: _questions[index].options.keys.toList()[i],
+                            color: isPressed
+                                ? _questions[index]
+                                            .options
+                                            .values
+                                            .toList()[i] ==
+                                        true
+                                    ? correct
+                                    : _questions[index]
+                                                .options
+                                                .keys
+                                                .toList()[i] ==
+                                            select
+                                        ? incorrect
+                                        : neutral
+                                : neutral,
+                          ),
+                        )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 108)
+            ],
           ),
-        ],
-      ),
-      body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: [
-            QuestionWidget(
-              indexAction: index,
-              question: _questions[index].title,
-              totalQuestions: _questions.length,
-            ),
-            const Divider(color: neutral),
-            const SizedBox(height: 25.0),
-            for (int i = 0; i < _questions[index].options.length; i++)
-              GestureDetector(
-                onTap: () => checkAnswerAndUpdate(
-                  _questions[index].options.values.toList()[i],
-                  _questions[index].options.keys.toList()[i],
-                ),
-                child: OptionCard(
-                  option: _questions[index].options.keys.toList()[i],
-                  color: isPressed
-                      ? _questions[index].options.values.toList()[i] == true
-                          ? correct
-                          : _questions[index].options.keys.toList()[i] == select
-                              ? incorrect
-                              : neutral
-                      : neutral,
-                ),
-              ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            if (isPressed)
-              Text(
-                _questions[index].desc,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-          ],
         ),
       ),
-      floatingActionButton: GestureDetector(
-        onTap: () => nextQuestion(_questions.length),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: NextButton(),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
