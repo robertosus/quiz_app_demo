@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/widgets/description.dart';
 import '../constants.dart';
 import '../models/question_model.dart';
 import '../widgets/question_widget.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool isPressed = false;
   String select = '';
-
+  bool changeWidget = false;
   bool isAlreadySelected = false;
   void nextQuestion(int questionLength) {
     if (index == questionLength - 1) {
@@ -66,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
           index++;
           isPressed = false;
           isAlreadySelected = false;
+          changeWidget = false;
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -81,14 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
     if (isAlreadySelected) {
       return;
     } else {
-      if (value == true) {
-        score++;
-      }
-      setState(() {
-        isPressed = true;
-        isAlreadySelected = true;
-        select = answer;
-      });
+      Future.delayed(
+        Duration(seconds: 2),
+        () {
+          if (value == true) {
+            score++;
+          }
+          setState(() {
+            isPressed = true;
+            isAlreadySelected = true;
+            select = answer;
+            changeWidget = !changeWidget;
+          });
+        },
+      );
     }
   }
 
@@ -98,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
       score = 0;
       isPressed = false;
       isAlreadySelected = false;
+      changeWidget = false;
     });
     Navigator.pop(context);
   }
@@ -121,45 +130,69 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: SizedBox(
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    primary: false,
-                    physics: const NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 24,
-                    crossAxisSpacing: 22,
-                    crossAxisCount: 2,
-                    children: [
-                      for (int i = 0; i < _questions[index].options.length; i++)
-                        GestureDetector(
-                          onTap: () => checkAnswerAndUpdate(
-                            _questions[index].options.values.toList()[i],
-                            _questions[index].options.keys.toList()[i],
-                          ),
-                          child: OptionCard(
-                            option: _questions[index].options.keys.toList()[i],
-                            color: isPressed
-                                ? _questions[index]
-                                            .options
-                                            .values
-                                            .toList()[i] ==
-                                        true
-                                    ? correct
-                                    : _questions[index]
-                                                .options
-                                                .keys
-                                                .toList()[i] ==
-                                            select
-                                        ? incorrect
-                                        : neutral
-                                : neutral,
-                          ),
-                        )
-                    ],
-                  ),
-                ),
+                child: changeWidget
+                    ? Description(
+                        desc: _questions[index].desc,
+                        pressed: () => nextQuestion(_questions.length),
+                      )
+                    : SizedBox(
+                        child: GridView.count(
+                          shrinkWrap: true,
+                          primary: false,
+                          physics: const NeverScrollableScrollPhysics(),
+                          mainAxisSpacing: 24,
+                          crossAxisSpacing: 22,
+                          crossAxisCount: 2,
+                          children: [
+                            for (int i = 0;
+                                i < _questions[index].options.length;
+                                i++)
+                              GestureDetector(
+                                onTap: () {
+                                  checkAnswerAndUpdate(
+                                    _questions[index]
+                                        .options
+                                        .values
+                                        .toList()[i],
+                                    _questions[index].options.keys.toList()[i],
+                                  );
+
+                                  setState(() {
+                                    isPressed = true;
+                                    isAlreadySelected = true;
+                                    select = _questions[index]
+                                        .options
+                                        .keys
+                                        .toList()[i];
+                                  });
+                                },
+                                child: OptionCard(
+                                  option: _questions[index]
+                                      .options
+                                      .keys
+                                      .toList()[i],
+                                  color: isPressed
+                                      ? _questions[index]
+                                                  .options
+                                                  .values
+                                                  .toList()[i] ==
+                                              true
+                                          ? correct
+                                          : _questions[index]
+                                                      .options
+                                                      .keys
+                                                      .toList()[i] ==
+                                                  select
+                                              ? incorrect
+                                              : neutral
+                                      : neutral,
+                                ),
+                              ),
+                            SizedBox(height: 30)
+                          ],
+                        ),
+                      ),
               ),
-              SizedBox(height: 108)
             ],
           ),
         ),
