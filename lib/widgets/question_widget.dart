@@ -16,38 +16,34 @@ class QuestionWidget extends StatelessWidget {
   final int totalQuestions;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        children: [
-          SizedBox(height: 30),
-          Container(
-              width: MediaQuery.of(context).size.width - (2 * 24),
-              height: 342,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Image.asset(
-                  imageQuestion,
-                  width: 302,
-                  height: 200,
-                ),
-              )),
-          SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              '$question',
-              style:
-                  const TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
-              textAlign: TextAlign.center,
+    return Column(
+      children: [
+        SizedBox(height: 30),
+        Container(
+            width: MediaQuery.of(context).size.width - (2 * 24),
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.white,
             ),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Image.asset(
+                imageQuestion,
+                width: 302,
+                height: 200,
+              ),
+            )),
+        SizedBox(height: 40),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            '$question',
+            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700),
+            textAlign: TextAlign.center,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

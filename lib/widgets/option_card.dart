@@ -18,12 +18,12 @@ class OptionCard extends StatelessWidget {
         border: Border.all(color: color, width: 4),
       ),
       width: 160,
-      height: 110,
+      height: 65,
       child: Center(
         child: Text(
           option,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
     );

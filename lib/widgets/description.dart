@@ -17,12 +17,11 @@ class Description extends StatelessWidget {
           textAlign: TextAlign.justify,
           style: const TextStyle(fontSize: 16),
         ),
-        SizedBox(height: 69),
+        SizedBox(height: 30),
         GestureDetector(
           onTap: pressed,
           child: NextButton(),
         ),
-        SizedBox(height: 40)
       ],
     );
   }
