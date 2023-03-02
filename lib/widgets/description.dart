@@ -4,22 +4,15 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:quiz_app/widgets/next_button.dart';
 
 class Description extends StatelessWidget {
-  const Description({super.key, required this.desc, required this.press});
+  const Description({super.key, required this.desc});
 
-  final VoidCallback press;
   final String desc;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          desc,
-          textAlign: TextAlign.justify,
-          style: const TextStyle(fontSize: 16),
-        ),
-        SizedBox(height: 30),
-        GestureDetector(onTap: press, child: NextButton())
-      ],
+    return Text(
+      desc,
+      textAlign: TextAlign.justify,
+      style: const TextStyle(fontSize: 16),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:quiz_app/widgets/next_button.dart';
 
 import '../constants.dart';
 import '../models/question_model.dart';
@@ -26,7 +27,7 @@ class _QuizScreenState extends State<QuizScreen> {
       title: 'Method stateFul widget yang untuk menghancurkan object adalah ?',
       image: 'assets/question1.png',
       desc:
-          'DISPOSE: Ketika kita sedang menggunakan website favorite kita misalnya seperti Twitter yang kita akses melalui laptop atau komputer, dan kita ingin membuat sebuah postingan baru yang menjelaskan betapa bahagia diri kita hari ini dan selamanya.',
+          'DISPOSE: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. ',
       options: {
         'logging': false,
         'setState': false,
@@ -109,70 +110,90 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          QuestionWidget(
-            indexAction: index,
-            question: _questions[index].title,
-            imageQuestion: _questions[index].image,
-            totalQuestions: _questions.length,
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: changeWidget
-                ? Description(
-                    press: () => nextQuestion(_questions.length),
-                    desc: _questions[index].desc,
-                  )
-                : GridView.count(
-                    childAspectRatio: 2,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 24,
-                    crossAxisSpacing: 22,
-                    crossAxisCount: 2,
-                    children: [
-                      for (int i = 0; i < _questions[index].options.length; i++)
-                        GestureDetector(
-                          onTap: () {
-                            checkAnswerAndUpdate(
-                              _questions[index].options.values.toList()[i],
-                              _questions[index].options.keys.toList()[i],
-                            );
-
-                            setState(() {
-                              isPressed = true;
-                              isAlreadySelected = true;
-                              select =
-                                  _questions[index].options.keys.toList()[i];
-                            });
-                          },
-                          child: OptionCard(
-                            option: _questions[index].options.keys.toList()[i],
-                            color: isPressed
-                                ? _questions[index]
-                                            .options
-                                            .values
-                                            .toList()[i] ==
-                                        true
-                                    ? correct
-                                    : _questions[index]
-                                                .options
-                                                .keys
-                                                .toList()[i] ==
-                                            select
-                                        ? incorrect
-                                        : neutral
-                                : neutral,
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Column(
+          children: [
+            QuestionWidget(
+              indexAction: index,
+              question: _questions[index].title,
+              imageQuestion: _questions[index].image,
+              totalQuestions: _questions.length,
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: changeWidget
+                  ? Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 189,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Description(
+                                desc: _questions[index].desc,
+                              ),
+                            ),
                           ),
-                        ),
-                    ],
-                  ),
-          ),
-        ],
-      ),
+                        ],
+                      ),
+                    )
+                  : GridView.count(
+                      childAspectRatio: 2,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      mainAxisSpacing: 24,
+                      crossAxisSpacing: 22,
+                      crossAxisCount: 2,
+                      children: [
+                        for (int i = 0;
+                            i < _questions[index].options.length;
+                            i++)
+                          GestureDetector(
+                            onTap: () {
+                              checkAnswerAndUpdate(
+                                _questions[index].options.values.toList()[i],
+                                _questions[index].options.keys.toList()[i],
+                              );
+
+                              setState(() {
+                                isPressed = true;
+                                isAlreadySelected = true;
+                                select =
+                                    _questions[index].options.keys.toList()[i];
+                              });
+                            },
+                            child: OptionCard(
+                              option:
+                                  _questions[index].options.keys.toList()[i],
+                              color: isPressed
+                                  ? _questions[index]
+                                              .options
+                                              .values
+                                              .toList()[i] ==
+                                          true
+                                      ? correct
+                                      : _questions[index]
+                                                  .options
+                                                  .keys
+                                                  .toList()[i] ==
+                                              select
+                                          ? incorrect
+                                          : neutral
+                                  : neutral,
+                            ),
+                          ),
+                      ],
+                    ),
+            ),
+          ],
+        ),
+        changeWidget
+            ? NextButton(press: () => nextQuestion(_questions.length))
+            : Container()
+      ],
     );
   }
 }
