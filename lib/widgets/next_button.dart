@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sticky_widgets/flutter_sticky_widgets.dart';
 import '../constants.dart';
 
 class NextButton extends StatelessWidget {

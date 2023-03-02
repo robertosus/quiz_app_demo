@@ -9,6 +9,10 @@ import '../widgets/option_card.dart';
 import '../widgets/question_widget.dart';
 import '../widgets/result_box.dart';
 
+bool changeWidget = false;
+bool isAlreadySelected = false;
+bool isPressed = false;
+
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
 
@@ -48,10 +52,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   int score = 0;
 
-  bool isPressed = false;
   String select = '';
-  bool changeWidget = false;
-  bool isAlreadySelected = false;
   void nextQuestion(int questionLength) {
     if (index == questionLength - 1) {
       showDialog(
@@ -70,12 +71,6 @@ class _QuizScreenState extends State<QuizScreen> {
           isAlreadySelected = false;
           changeWidget = false;
         });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Please select any option'),
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.symmetric(vertical: 20.0),
-        ));
       }
     }
   }
@@ -128,8 +123,8 @@ class _QuizScreenState extends State<QuizScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: changeWidget
                 ? Description(
+                    press: () => nextQuestion(_questions.length),
                     desc: _questions[index].desc,
-                    pressed: () => nextQuestion(_questions.length),
                   )
                 : GridView.count(
                     childAspectRatio: 2,
