@@ -5,6 +5,8 @@ import 'package:quiz_app/widgets/next_button.dart';
 import '../constants.dart';
 import '../models/menuQuiz_model.dart';
 
+bool playQuiz = true;
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -18,8 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Menu(name: 'Basic Algorithm', total: 114, image: 'assets/image 3.png'),
     Menu(name: 'Flutter Slicing', total: 183, image: 'assets/image 3.png'),
   ];
-
-  bool playQuiz = true;
 
   @override
   Widget build(BuildContext context) {

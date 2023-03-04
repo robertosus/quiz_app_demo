@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:quiz_app/screens/home_screen.dart';
 import 'package:quiz_app/widgets/next_button.dart';
 
 import '../constants.dart';

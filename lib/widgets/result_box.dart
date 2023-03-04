@@ -14,53 +14,12 @@ class ResultBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      title: Text("Attention"),
       backgroundColor: background,
-      content: Padding(
-        padding: const EdgeInsets.all(60.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Result',
-              style: TextStyle(fontSize: 22.0),
-            ),
-            const SizedBox(height: 20.0),
-            CircleAvatar(
-              radius: 70.0,
-              backgroundColor: result == questionLength / 2
-                  ? Colors.yellow
-                  : result < questionLength / 2
-                      ? incorrect
-                      : correct,
-              child: Text(
-                '$result/$questionLength',
-                style: const TextStyle(fontSize: 30.0),
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            Text(
-              result == questionLength / 2
-                  ? 'Almost There'
-                  : result < questionLength / 2
-                      ? 'Try Again ?'
-                      : 'Great!',
-            ),
-            const SizedBox(height: 25.0),
-            GestureDetector(
-              onTap: onPressed,
-              child: const Text(
-                'Start Over',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 20.0,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      content: Text('Anda telah menyelesaikan quiz, Congratulations'),
+      actions: [
+        TextButton(onPressed: onPressed, child: const Text("Back to Home"))
+      ],
     );
   }
 }
