@@ -8,8 +8,6 @@ import '../models/menuQuiz_model.dart';
 bool playQuiz = true;
 final List<Menu> _menu = [
   Menu(name: 'Basic UI Design', total: 183, image: 'assets/image 3.png'),
-  Menu(name: 'Basic Algorithm', total: 114, image: 'assets/image 3.png'),
-  Menu(name: 'Flutter Slicing', total: 183, image: 'assets/image 3.png'),
 ];
 
 class HomeScreen extends StatefulWidget {

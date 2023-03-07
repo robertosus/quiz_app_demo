@@ -23,7 +23,7 @@ class OptionCard extends StatelessWidget {
         child: Text(
           option,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: semiBold.copyWith(fontSize: 18),
         ),
       ),
     );

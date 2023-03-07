@@ -12,6 +12,55 @@ import '../widgets/option_card.dart';
 import '../widgets/question_widget.dart';
 import '../widgets/result_box.dart';
 
+final List<Question> _questions = [
+  Question(
+    title: 'Apakah nama dari UI component di atas?',
+    image: 'assets/question1.png',
+    desc:
+        'Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online.',
+    options: {
+      'Button': true,
+      'Click': false,
+      'Anchor': false,
+      'TapClick': false
+    },
+  ),
+  Question(
+    title: 'Apakah nama dari UI component di atas?',
+    image: 'assets/question2.png',
+    desc:
+        'Checkbox dapat membantu pengguna untuk memilih item apa saja (lebih dari satu item) yang dibutuhkan oleh pengguna sebelum melakukan proses checkout.',
+    options: {
+      'Option': false,
+      'Choices': false,
+      'Checkbox': true,
+      'Select': false
+    },
+  ),
+  Question(
+      title: 'Apakah nama dari UI component di atas?',
+      image: 'assets/question3.png',
+      desc:
+          'Checkbox dapat membantu pengguna untuk memilih item apa saja (lebih dari satu item) yang dibutuhkan oleh pengguna sebelum melakukan proses checkout.',
+      options: {
+        'Add Value': false,
+        'Column': false,
+        'Email Input': false,
+        'Text Field': true
+      }),
+  Question(
+      title: 'Apakah nama dari\nhalaman di atas?',
+      image: 'assets/question4.png',
+      desc:
+          'Ketika layanan atau konten sedang tidak tersedia pada aplikasi maka kita bisa menyediakan sebuah halaman Empty State untuk menjelaskan keadaan saat itu, sehingga pengguna tidak bingung dan dapat melanjutkan aktivitas lainnya.',
+      options: {
+        '404 Page': false,
+        'Empty State': true,
+        'Onboarding': false,
+        'Settings': false
+      })
+];
+
 bool changeWidget = false;
 bool isAlreadySelected = false;
 bool isPressed = false;
@@ -28,33 +77,6 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  final List<Question> _questions = [
-    Question(
-      title: 'Method stateFul widget yang untuk menghancurkan object adalah ?',
-      image: 'assets/question1.png',
-      desc:
-          'DISPOSE: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. ',
-      options: {
-        'logging': false,
-        'setState': false,
-        'dispose': true,
-        'initState': false
-      },
-    ),
-    Question(
-      title: 'Method pada stateFul widget yang hanya dijalankan sekali?',
-      image: 'assets/logo.png',
-      desc:
-          'INIT STATE: But I must explain to you how all this mistaken idea of denouncing',
-      options: {
-        'logging': false,
-        'initState': true,
-        'setState': false,
-        'dispose': false
-      },
-    ),
-  ];
-
   void nextQuestion(int questionLength) {
     if (index == questionLength - 1) {
       setState(() {
@@ -75,7 +97,7 @@ class _QuizScreenState extends State<QuizScreen> {
       return;
     } else {
       Future.delayed(
-        Duration(seconds: 2),
+        Duration(milliseconds: 800),
         () {
           if (value == true) {
             score++;

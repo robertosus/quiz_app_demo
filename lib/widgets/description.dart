@@ -11,8 +11,8 @@ class Description extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       desc,
-      textAlign: TextAlign.justify,
-      style: const TextStyle(fontSize: 16),
+      textAlign: TextAlign.left,
+      style: const TextStyle(fontSize: 16, height: 1.8),
     );
   }
 }
