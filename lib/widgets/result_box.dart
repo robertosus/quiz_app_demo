@@ -4,12 +4,9 @@ import '../constants.dart';
 class ResultBox extends StatelessWidget {
   const ResultBox({
     Key? key,
-    required this.result,
-    required this.questionLength,
     required this.onPressed,
   }) : super(key: key);
-  final int result;
-  final int questionLength;
+
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
