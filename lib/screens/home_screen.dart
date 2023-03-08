@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/main.dart';
 import 'package:quiz_app/screens/quiz_screen.dart';
 import 'package:quiz_app/widgets/menu_card.dart';
 import 'package:quiz_app/widgets/next_button.dart';
@@ -6,9 +7,6 @@ import '../constants.dart';
 import '../models/menuQuiz_model.dart';
 
 bool playQuiz = true;
-final List<Menu> _menu = [
-  Menu(name: 'Basic UI Design', total: 183, image: 'assets/image 3.png'),
-];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -51,14 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 24),
                         scrollDirection: Axis.horizontal,
-                        itemCount: _menu.length,
+                        itemCount: menu.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: MenuCard(
-                              name: _menu[index].name,
-                              total: _menu[index].total,
-                              image: _menu[index].image,
+                              name: menu[index].name,
+                              total: menu[index].total,
+                              image: menu[index].image,
                               pressed: () => setState(() {
                                 playQuiz = !playQuiz;
                               }),

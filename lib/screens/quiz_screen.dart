@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:quiz_app/main.dart';
 import 'package:quiz_app/screens/done_screen.dart';
 import 'package:quiz_app/screens/home_screen.dart';
 import 'package:quiz_app/widgets/next_button.dart';
@@ -11,55 +12,6 @@ import '../widgets/description.dart';
 import '../widgets/option_card.dart';
 import '../widgets/question_widget.dart';
 import '../widgets/result_box.dart';
-
-final List<Question> _questions = [
-  Question(
-    title: 'Apakah nama dari UI component di atas?',
-    image: 'assets/question1.png',
-    desc:
-        'Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online.',
-    options: {
-      'Button': true,
-      'Click': false,
-      'Anchor': false,
-      'TapClick': false
-    },
-  ),
-  Question(
-    title: 'Apakah nama dari UI component di atas?',
-    image: 'assets/question2.png',
-    desc:
-        'Checkbox dapat membantu pengguna untuk memilih item apa saja (lebih dari satu item) yang dibutuhkan oleh pengguna sebelum melakukan proses checkout.',
-    options: {
-      'Option': false,
-      'Choices': false,
-      'Checkbox': true,
-      'Select': false
-    },
-  ),
-  Question(
-      title: 'Apakah nama dari UI component di atas?',
-      image: 'assets/question3.png',
-      desc:
-          'Checkbox dapat membantu pengguna untuk memilih item apa saja (lebih dari satu item) yang dibutuhkan oleh pengguna sebelum melakukan proses checkout.',
-      options: {
-        'Add Value': false,
-        'Column': false,
-        'Email Input': false,
-        'Text Field': true
-      }),
-  Question(
-      title: 'Apakah nama dari\nhalaman di atas?',
-      image: 'assets/question4.png',
-      desc:
-          'Ketika layanan atau konten sedang tidak tersedia pada aplikasi maka kita bisa menyediakan sebuah halaman Empty State untuk menjelaskan keadaan saat itu, sehingga pengguna tidak bingung dan dapat melanjutkan aktivitas lainnya.',
-      options: {
-        '404 Page': false,
-        'Empty State': true,
-        'Onboarding': false,
-        'Settings': false
-      })
-];
 
 bool changeWidget = false;
 bool isAlreadySelected = false;
@@ -127,10 +79,10 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     //! Mengambil data keys
-    List<String> trueKeys = _questions[index]
+    List<String> trueKeys = questions[index]
         .options
         .keys
-        .where((key) => _questions[index].options[key] == true)
+        .where((key) => questions[index].options[key] == true)
         .toList();
 
     //! Diubah ke dalam string
@@ -141,7 +93,7 @@ class _QuizScreenState extends State<QuizScreen> {
       children: [
         playQuiz == true
             ? HomeScreen()
-            : index == _questions.length - 1 && itsDone == true
+            : index == questions.length - 1 && itsDone == true
                 ? DoneScreen()
                 : Column(
                     children: [
@@ -149,9 +101,9 @@ class _QuizScreenState extends State<QuizScreen> {
                         indexAction: index,
                         question: isPressed == true
                             ? trueKeysString
-                            : _questions[index].title,
-                        imageQuestion: _questions[index].image,
-                        totalQuestions: _questions.length,
+                            : questions[index].title,
+                        imageQuestion: questions[index].image,
+                        totalQuestions: questions.length,
                       ),
                       SizedBox(height: 20),
                       Padding(
@@ -165,7 +117,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                     Expanded(
                                       child: SingleChildScrollView(
                                         child: Description(
-                                          desc: _questions[index].desc,
+                                          desc: questions[index].desc,
                                         ),
                                       ),
                                     ),
@@ -181,16 +133,16 @@ class _QuizScreenState extends State<QuizScreen> {
                                 crossAxisCount: 2,
                                 children: [
                                   for (int i = 0;
-                                      i < _questions[index].options.length;
+                                      i < questions[index].options.length;
                                       i++)
                                     GestureDetector(
                                       onTap: () {
                                         checkAnswerAndUpdate(
-                                          _questions[index]
+                                          questions[index]
                                               .options
                                               .values
                                               .toList()[i],
-                                          _questions[index]
+                                          questions[index]
                                               .options
                                               .keys
                                               .toList()[i],
@@ -199,25 +151,25 @@ class _QuizScreenState extends State<QuizScreen> {
                                         setState(() {
                                           isPressed = true;
                                           isAlreadySelected = true;
-                                          select = _questions[index]
+                                          select = questions[index]
                                               .options
                                               .keys
                                               .toList()[i];
                                         });
                                       },
                                       child: OptionCard(
-                                        option: _questions[index]
+                                        option: questions[index]
                                             .options
                                             .keys
                                             .toList()[i],
                                         color: isPressed
-                                            ? _questions[index]
+                                            ? questions[index]
                                                         .options
                                                         .values
                                                         .toList()[i] ==
                                                     true
                                                 ? correct
-                                                : _questions[index]
+                                                : questions[index]
                                                             .options
                                                             .keys
                                                             .toList()[i] ==
@@ -238,7 +190,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   if (itsDone == true) {
                     startOver();
                   } else {
-                    nextQuestion(_questions.length);
+                    nextQuestion(questions.length);
                   }
                 },
                 text: itsDone == true ? "Back to Home" : "Next Question",
