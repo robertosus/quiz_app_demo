@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/screens/home_screen.dart';
 
@@ -20,67 +23,58 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: TestParsing(),
+    );
+  }
+}
+
+class TestParsing extends StatefulWidget {
+  const TestParsing({super.key});
+
+  @override
+  State<TestParsing> createState() => _TestParsingState();
+}
+
+class _TestParsingState extends State<TestParsing> {
+  List<Question>? result;
+  Future loadData() async {
+    //! Ambil data namun dalam bentuk string
+    String getData = await rootBundle.loadString('assets/question.json');
+    //! Convert menjadi object map
+    List data = jsonDecode(getData);
+
+    //! Karena list of map, maka ditransfrom terlebih dahulu untuk mengubah data object ke dalam dart dalam bentuk list
+    List<Question> transformData =
+        data.map((e) => Question.fromJson(e)).toList();
+
+    setState(() {
+      result = transformData;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Center(
+            child: ElevatedButton(
+                onPressed: () {
+                  loadData();
+                },
+                child: Text('Click data')),
+          ),
+          SizedBox(height: 30),
+          Text('${result?[1].options.map((e) => e.isCorrect).toList()}')
+        ]),
+      ),
     );
   }
 }
 
 //!Model menu Card
 final List<Menu> menu = [
-  Menu(
-      name: 'Basic UI Design',
-      total: questions.length,
-      image: 'assets/image 3.png'),
+  Menu(name: 'Basic UI Design', total: 7, image: 'assets/image 3.png'),
   Menu(name: 'Basic UI Design', total: 183, image: 'assets/image 3.png'),
   Menu(name: 'Basic UI Design', total: 183, image: 'assets/image 3.png'),
-];
-
-//!Model question
-List<Question> questions = [
-  Question(
-    title: 'Apakah nama dari UI component di atas?',
-    image: 'assets/question1.png',
-    desc:
-        'Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online.',
-    options: {
-      'Button': true,
-      'Click': false,
-      'Anchor': false,
-      'TapClick': false
-    },
-  ),
-  Question(
-    title: 'Apakah nama dari UI component di atas?',
-    image: 'assets/question2.png',
-    desc:
-        'Checkbox dapat membantu pengguna untuk memilih item apa saja (lebih dari satu item) yang dibutuhkan oleh pengguna sebelum melakukan proses checkout.',
-    options: {
-      'Option': false,
-      'Choices': false,
-      'Checkbox': true,
-      'Select': false
-    },
-  ),
-  Question(
-      title: 'Apakah nama dari UI component di atas?',
-      image: 'assets/question3.png',
-      desc:
-          'Checkbox dapat membantu pengguna untuk memilih item apa saja (lebih dari satu item) yang dibutuhkan oleh pengguna sebelum melakukan proses checkout.',
-      options: {
-        'Add Value': false,
-        'Column': false,
-        'Email Input': false,
-        'Text Field': true
-      }),
-  Question(
-      title: 'Apakah nama dari\nhalaman di atas?',
-      image: 'assets/question4.png',
-      desc:
-          'Ketika layanan atau konten sedang tidak tersedia pada aplikasi maka kita bisa menyediakan sebuah halaman Empty State untuk menjelaskan keadaan saat itu, sehingga pengguna tidak bingung dan dapat melanjutkan aktivitas lainnya.',
-      options: {
-        '404 Page': false,
-        'Empty State': true,
-        'Onboarding': false,
-        'Settings': false
-      })
 ];
