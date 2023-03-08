@@ -97,7 +97,7 @@ class _QuizScreenState extends State<QuizScreen> {
       return;
     } else {
       Future.delayed(
-        Duration(milliseconds: 800),
+        Duration(milliseconds: 900),
         () {
           if (value == true) {
             score++;
@@ -126,6 +126,16 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //! Mengambil data keys
+    List<String> trueKeys = _questions[index]
+        .options
+        .keys
+        .where((key) => _questions[index].options[key] == true)
+        .toList();
+
+    //! Diubah ke dalam string
+    String trueKeysString = trueKeys.join();
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -137,7 +147,9 @@ class _QuizScreenState extends State<QuizScreen> {
                     children: [
                       QuestionWidget(
                         indexAction: index,
-                        question: _questions[index].title,
+                        question: isPressed == true
+                            ? trueKeysString
+                            : _questions[index].title,
                         imageQuestion: _questions[index].image,
                         totalQuestions: _questions.length,
                       ),

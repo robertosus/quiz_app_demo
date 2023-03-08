@@ -38,4 +38,7 @@ final List<Question> testing = [
       })
 ];
 
-void main(List<String> args) {}
+void main(List<String> args) {
+  var getData = testing.map((e) => e);
+  print(getData);
+}
