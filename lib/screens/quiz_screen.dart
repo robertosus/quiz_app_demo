@@ -20,6 +20,7 @@ int index = 0;
 int score = 0;
 String select = '';
 bool itsDone = false;
+String? getData;
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -78,19 +79,18 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //! Mengambil data text
     List<String>? textOption =
-        questions?[index].options.map((e) => e.option).toList();
-    List<String>? getStringElement =
-        textOption?.where((element) => element == '').toList();
-    print(getStringElement);
-
+        questions![index].options.map((e) => e.option).toList();
+    //! Mengambil data text
+    List<Option>? listOption = questions?[index].options;
+    for (var key in listOption!) {
+      if (key.isCorrect) {
+        getData = key.option;
+      }
+    }
+    print(getData);
     List<bool>? trueKeys =
         questions?[index].options.map((e) => e.isCorrect).toList();
-    //! Diubah ke dalam string
-    List<bool>? getElement =
-        trueKeys?.where((element) => element == true).toList();
-    String? trueKeysString = getElement?.join();
 
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -104,7 +104,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       QuestionWidget(
                         indexAction: index,
                         question: isPressed == true
-                            ? trueKeysString!
+                            ? getData!
                             : questions![index].title,
                         imageQuestion: questions![index].image,
                         totalQuestions: questions!.length,
@@ -115,7 +115,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         child: changeWidget
                             ? Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: 189,
+                                height: 250,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -153,7 +153,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                         });
                                       },
                                       child: OptionCard(
-                                        option: textOption![i],
+                                        option: textOption[i],
                                         color: isPressed
                                             ? trueKeys![i] == true
                                                 ? correct
