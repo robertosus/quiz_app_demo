@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quiz_app/main.dart';
+import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/screens/quiz_screen.dart';
 import 'package:quiz_app/widgets/menu_card.dart';
 import 'package:quiz_app/widgets/next_button.dart';
@@ -7,6 +11,7 @@ import '../constants.dart';
 import '../models/menuQuiz_model.dart';
 
 bool playQuiz = true;
+List<Question>? questions;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,6 +21,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future loadData() async {
+    String getData = await rootBundle.loadString('assets/question.json');
+    List data = jsonDecode(getData);
+    List<Question> datas = data.map((e) => Question.fromJson(e)).toList();
+    setState(() {
+      playQuiz = !playQuiz;
+      questions = datas;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,19 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: MenuCard(
-                              name: menu[index].name,
-                              total: menu[index].total,
-                              image: menu[index].image,
-                              pressed: () => setState(() {
-                                playQuiz = !playQuiz;
-                              }),
-                            ),
+                                name: menu[index].name,
+                                total: menu[index].total,
+                                image: menu[index].image,
+                                pressed: () async => loadData()),
                           );
                         },
                       ))
                 ],
               )
-            : Container(),
+            : QuizScreen(),
       ),
     );
   }
