@@ -27,10 +27,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//!Model menu Card
-final List<Menu> menu = [
-  Menu(id: 1, name: 'Basic UI Design', total: 7, image: 'assets/image 3.png'),
-  Menu(id: 2, name: 'Basic UI Design', total: 183, image: 'assets/image 3.png'),
-  Menu(id: 3, name: 'Basic UI Design', total: 183, image: 'assets/image 3.png'),
-];
