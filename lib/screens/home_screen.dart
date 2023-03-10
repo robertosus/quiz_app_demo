@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future loadData() async {
+  void loadData() async {
     String getData = await rootBundle.loadString('assets/question.json');
     List data = jsonDecode(getData);
     List<Question> datas = data.map((e) => Question.fromJson(e)).toList();
@@ -29,6 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
       playQuiz = !playQuiz;
       questions = datas;
     });
+  }
+
+  Future<List<Menu>> loadMenu() async {
+    String getMenu = await rootBundle.loadString('assets/menu.json');
+    List objMenu = jsonDecode(getMenu);
+    List<Menu> menus = objMenu.map((e) => Menu.fromJson(e)).toList();
+
+    return menus;
   }
 
   @override
@@ -59,23 +67,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Container(
-                      height: 157,
-                      child: ListView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 24),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: menu.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: MenuCard(
-                                name: menu[index].name,
-                                total: menu[index].total,
-                                image: menu[index].image,
-                                pressed: () async => loadData()),
-                          );
-                        },
-                      ))
+                  FutureBuilder(
+                    future: loadMenu(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<Menu>? listMenu = snapshot.data;
+                        return Container(
+                            height: 157,
+                            child: ListView.builder(
+                              padding: EdgeInsets.symmetric(horizontal: 24),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: listMenu?.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: MenuCard(
+                                      id: listMenu![index].id,
+                                      name: listMenu[index].name,
+                                      image: listMenu[index].image,
+                                      total: listMenu[index].total,
+                                      pressed: () async => loadData()),
+                                );
+                              },
+                            ));
+                      }
+                      return CircularProgressIndicator();
+                    },
+                  ),
                 ],
               )
             : QuizScreen(),

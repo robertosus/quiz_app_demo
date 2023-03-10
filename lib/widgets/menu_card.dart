@@ -8,12 +8,14 @@ import 'package:quiz_app/constants.dart';
 class MenuCard extends StatelessWidget {
   const MenuCard({
     Key? key,
+    required this.id,
     required this.name,
     required this.total,
     required this.image,
     required this.pressed,
   }) : super(key: key);
 
+  final int id;
   final String name;
   final int total;
   final String image;

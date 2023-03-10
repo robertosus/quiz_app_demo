@@ -13,5 +13,5 @@ const Color primary = Color(0xFF3D58FF);
 const Color black = Color(0xFF34364A);
 
 const TextStyle semiBold = TextStyle(fontWeight: FontWeight.w600, color: black);
-const TextStyle Bold = TextStyle(fontWeight: FontWeight.w800, color: black);
+const TextStyle bold = TextStyle(fontWeight: FontWeight.w800, color: black);
 const TextStyle regular = TextStyle(fontWeight: FontWeight.w400, color: black);

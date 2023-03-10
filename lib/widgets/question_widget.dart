@@ -28,7 +28,7 @@ class QuestionWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text(
             '$question',
-            style: Bold.copyWith(fontSize: 24),
+            style: bold.copyWith(fontSize: 24),
             textAlign: TextAlign.center,
           ),
         ),
