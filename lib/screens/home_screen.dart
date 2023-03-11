@@ -12,6 +12,7 @@ import '../models/menuQuiz_model.dart';
 
 bool playQuiz = true;
 List<Question>? questions;
+List<Menu>? listMenu;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     future: loadMenu(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List<Menu>? listMenu = snapshot.data;
+                        listMenu = snapshot.data;
                         return Container(
                             height: 157,
                             child: ListView.builder(
@@ -83,9 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.only(right: 16),
                                   child: MenuCard(
                                       id: listMenu![index].id,
-                                      name: listMenu[index].name,
-                                      image: listMenu[index].image,
-                                      total: listMenu[index].total,
+                                      name: listMenu![index].name,
+                                      image: listMenu![index].image,
+                                      total: listMenu![index].total,
                                       pressed: () async => loadData()),
                                 );
                               },
