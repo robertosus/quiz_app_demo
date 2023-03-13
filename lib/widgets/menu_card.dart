@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:quiz_app/constants.dart';
+import 'package:quiz_app/models/question_model.dart';
 
 class MenuCard extends StatelessWidget {
   const MenuCard({
@@ -13,12 +14,14 @@ class MenuCard extends StatelessWidget {
     required this.total,
     required this.image,
     required this.pressed,
+    required this.question,
   }) : super(key: key);
 
   final int id;
   final String name;
   final int total;
   final String image;
+  final List<Question> question;
   final VoidCallback pressed;
   @override
   Widget build(BuildContext context) {

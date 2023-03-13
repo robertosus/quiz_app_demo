@@ -1,6 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:quiz_app/main.dart';
 import 'package:quiz_app/screens/done_screen.dart';
 import 'package:quiz_app/screens/home_screen.dart';
@@ -21,10 +23,14 @@ int score = 0;
 String select = '';
 bool itsDone = false;
 String? getData;
+List<Question>? dataQuestion;
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
-
+  const QuizScreen({
+    Key? key,
+    required this.listQuestion,
+  }) : super(key: key);
+  final List<Question> listQuestion;
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
@@ -68,36 +74,41 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void startOver() {
     setState(() {
+      selectedIndex = -1;
       index = 0;
       isPressed = false;
       isAlreadySelected = false;
       changeWidget = false;
-      playQuiz = true;
+      selectedIndex = null;
       itsDone = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String>? textOption =
-        questions![index].options.map((e) => e.option).toList();
     //! Mengambil data text
-    List<Option>? listOption = questions?[index].options;
-    for (var key in listOption!) {
+    List<String>? textOption =
+        widget.listQuestion[index].options.map((e) => e.option).toList();
+
+    List<Option>? listOption = widget.listQuestion[index].options;
+    //! Mengambil element pada list option
+    for (var key in listOption) {
+      //! Pengecheckan jika datanya true maka akan menampilkan data string yang true
       if (key.isCorrect) {
         getData = key.option;
       }
     }
     print(getData);
+    //! Mengambil data yang correct / benar
     List<bool>? trueKeys =
-        questions?[index].options.map((e) => e.isCorrect).toList();
+        widget.listQuestion[index].options.map((e) => e.isCorrect).toList();
 
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        playQuiz == true
+        selectedIndex == null
             ? HomeScreen()
-            : index == questions!.length - 1 && itsDone == true
+            : index == widget.listQuestion.length - 1 && itsDone == true
                 ? DoneScreen()
                 : Column(
                     children: [
@@ -105,9 +116,9 @@ class _QuizScreenState extends State<QuizScreen> {
                         indexAction: index,
                         question: isPressed == true
                             ? getData!
-                            : questions![index].title,
-                        imageQuestion: questions![index].image,
-                        totalQuestions: questions!.length,
+                            : widget.listQuestion[index].title,
+                        imageQuestion: widget.listQuestion[index].image,
+                        totalQuestions: widget.listQuestion.length,
                       ),
                       SizedBox(height: 20),
                       Padding(
@@ -121,7 +132,8 @@ class _QuizScreenState extends State<QuizScreen> {
                                     Expanded(
                                       child: SingleChildScrollView(
                                         child: Description(
-                                          desc: questions![index].description,
+                                          desc: widget
+                                              .listQuestion[index].description,
                                         ),
                                       ),
                                     ),
@@ -137,12 +149,14 @@ class _QuizScreenState extends State<QuizScreen> {
                                 crossAxisCount: 2,
                                 children: [
                                   for (int i = 0;
-                                      i < questions![index].options.length;
+                                      i <
+                                          widget.listQuestion[index].options
+                                              .length;
                                       i++)
                                     GestureDetector(
                                       onTap: () {
                                         checkAnswerAndUpdate(
-                                          trueKeys![i],
+                                          trueKeys[i],
                                           textOption[i],
                                         );
 
@@ -155,7 +169,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                       child: OptionCard(
                                         option: textOption[i],
                                         color: isPressed
-                                            ? trueKeys![i] == true
+                                            ? trueKeys[i] == true
                                                 ? correct
                                                 : textOption[i] == select
                                                     ? incorrect
@@ -174,7 +188,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   if (itsDone == true) {
                     startOver();
                   } else {
-                    nextQuestion(questions!.length);
+                    nextQuestion(widget.listQuestion.length);
                   }
                 },
                 text: itsDone == true ? "Back to Home" : "Next Question",
