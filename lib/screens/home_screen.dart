@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: selectedIndex != null
               ? QuizScreen(
                   listQuestion: selectedIndex != null
-                      ? listMenu[selectedIndex!].question.map((e) => e).toList()
+                      ? listMenu[selectedIndex!].question
                       : null!)
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         id: listMenu[menuIndex].id,
                                         name: listMenu[menuIndex].name,
                                         image: listMenu[menuIndex].image,
-                                        total: listMenu[menuIndex].total,
+                                        total:
+                                            listMenu[menuIndex].question.length,
                                         question: listMenu[menuIndex].question,
                                         pressed: () => setState(() {
                                               selectedIndex =

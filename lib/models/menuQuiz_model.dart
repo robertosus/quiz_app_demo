@@ -5,13 +5,11 @@ class Menu {
   final int id;
   final String name;
   final String image;
-  final int total;
   final List<Question> question;
   Menu({
     required this.id,
     required this.name,
     required this.image,
-    required this.total,
     required this.question,
   });
 
@@ -19,7 +17,6 @@ class Menu {
       : id = json['id'],
         name = json['name'],
         image = json['image'],
-        total = json['total'],
         question = List<Question>.from(json['question']
             .map((questions) => Question.fromJson(questions))).toList();
 }

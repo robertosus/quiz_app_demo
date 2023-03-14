@@ -3,7 +3,6 @@
     "id" : 0,
     "name" : "Basic UI Design",
     "image" : "assets/image 3.png",
-    "total" : 6,
     "question" : 
     [
         {
@@ -50,21 +49,33 @@
     "id" : 1,
     "name" : "Basic Flutter",
     "image" : "assets/image 3.png",
-    "total" : 6,
     "question" :     
     [
         {
         "title":
-            "Apakah nama dari\nUI component di atas?",
+            "Apakah nama dari\nUI elements di atas?",
         "options": [
           {"option": "Button", "isCorrect": true},
           {"option": "Click", "isCorrect": false},
           {"option": "Anchor", "isCorrect": false},
           {"option": "TapClick", "isCorrect": false}
         ],
-        "image": "assets/question1.png",
+        "image": "assets/question5.png",
         "description":
-            "Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online."
+            "Ketika kita sedang menggunakan website favorite kita misalnya seperti Twitter yang kita akses melalui laptop atau komputer, dan kita ingin membuat sebuah postingan baru yang menjelaskan betapa bahagia diri kita hari ini dan selamanya."
+      },
+      {
+        "title":
+        "Apakah nama dari UI component di atas?",
+        "options": [
+          {"option": "Add Value", "isCorrect": false},
+          {"option": "Column", "isCorrect": false},
+          {"option": "Email Input", "isCorrect": false},
+          {"option": "Text Field", "isCorrect": true}
+        ],
+        "image": "assets/question3.png",
+        "description":
+            "TextField dapat membantu pengguna untuk memberikan informasi penting seperti email, nama lengkap, dan alamat rumah. Informasi tersebut biasanya digunakan untuk melakukan pembelian barang secara online melalui website atau aplikasi."
       }
       ] 
     },
@@ -72,12 +83,11 @@
     "id" : 2,
     "name" : "Basic UX Design",
     "image" : "assets/image 3.png",
-    "total" : 6,
     "question" :     
     [
         {
         "title":
-            "Apakah nama dari\nUI component di atas?",
+            "Pertanyaan materi UX Design",
         "options": [
           {"option": "Button", "isCorrect": true},
           {"option": "Click", "isCorrect": false},
@@ -100,6 +110,78 @@
         "description":
             "Checkbox dapat membantu pengguna untuk memilih item apa saja (lebih dari satu item) yang dibutuhkan oleh pengguna sebelum melakukan proses checkout."
       }
+      ]
+    },
+    {
+      "id" : 3,
+      "name" : "javascript Quiz",
+      "image" : "assets/image 3.png",
+      "question" :[
+        {
+          "title":
+              "Pertanyaan materi UX Design",
+          "options": [
+            {"option": "Button", "isCorrect": true},
+            {"option": "Click", "isCorrect": false},
+            {"option": "Anchor", "isCorrect": false},
+            {"option": "TapClick", "isCorrect": false}
+          ],
+          "image": "assets/question1.png",
+          "description":
+              "Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online."
+        },
+        {
+          "title":
+              "Pertanyaan materi UX Design",
+          "options": [
+            {"option": "Button", "isCorrect": true},
+            {"option": "Click", "isCorrect": false},
+            {"option": "Anchor", "isCorrect": false},
+            {"option": "TapClick", "isCorrect": false}
+          ],
+          "image": "assets/question1.png",
+          "description":
+              "Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online."
+        },
+        {
+          "title":
+              "Pertanyaan materi UX Design",
+          "options": [
+            {"option": "Button", "isCorrect": true},
+            {"option": "Click", "isCorrect": false},
+            {"option": "Anchor", "isCorrect": false},
+            {"option": "TapClick", "isCorrect": false}
+          ],
+          "image": "assets/question1.png",
+          "description":
+              "Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online."
+        },
+        {
+          "title":
+              "Pertanyaan materi UX Design",
+          "options": [
+            {"option": "Button", "isCorrect": true},
+            {"option": "Click", "isCorrect": false},
+            {"option": "Anchor", "isCorrect": false},
+            {"option": "TapClick", "isCorrect": false}
+          ],
+          "image": "assets/question1.png",
+          "description":
+              "Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online."
+        },
+        {
+          "title":
+              "Pertanyaan materi UX Design",
+          "options": [
+            {"option": "Button", "isCorrect": true},
+            {"option": "Click", "isCorrect": false},
+            {"option": "Anchor", "isCorrect": false},
+            {"option": "TapClick", "isCorrect": false}
+          ],
+          "image": "assets/question1.png",
+          "description":
+              "Button adalah komponen pada UI yang membantu pengguna untuk melakukan sebuah aksi misalnya memasukkan item kepada keranjang pada website atau aplikasi toko online."
+        } 
       ]
     }
 ]
