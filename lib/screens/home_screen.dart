@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:quiz_app/main.dart';
 import 'package:quiz_app/models/question_model.dart';
+import 'package:quiz_app/providers/menu_provider.dart';
 import 'package:quiz_app/screens/quiz_screen.dart';
 import 'package:quiz_app/widgets/menu_card.dart';
 import 'package:quiz_app/widgets/next_button.dart';
@@ -22,16 +24,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<List<Menu>?> loadMenu() async {
-    String getMenu = await rootBundle.loadString('assets/menu.json');
-    List objMenu = jsonDecode(getMenu);
-    List<Menu> menus = objMenu.map((e) => Menu.fromJson(e)).toList();
-    listMenu = menus;
-    return listMenu;
-  }
-
   @override
   Widget build(BuildContext context) {
+    var menu = Provider.of<MenuProvider>(context);
+    menu.getDataMenu();
     return SafeArea(
       child: Scaffold(
           backgroundColor: background,
@@ -63,37 +59,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 16),
                     FutureBuilder(
-                      future: loadMenu(),
+                      future: menu.getDataMenu(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           listMenu = snapshot.data!;
                           return Container(
-                              height: 157,
-                              child: ListView.builder(
+                            height: 157,
+                            child: ListView(
                                 padding: EdgeInsets.symmetric(horizontal: 24),
                                 scrollDirection: Axis.horizontal,
-                                itemCount: listMenu.length,
-                                itemBuilder: (context, menuIndex) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 16),
-                                    child: MenuCard(
-                                        id: listMenu[menuIndex].id,
-                                        name: listMenu[menuIndex].name,
-                                        image: listMenu[menuIndex].image,
-                                        total:
-                                            listMenu[menuIndex].question.length,
-                                        question: listMenu[menuIndex].question,
-                                        pressed: () => setState(() {
-                                              selectedIndex =
-                                                  listMenu[menuIndex].id;
-                                            })),
-                                  );
-                                },
-                              ));
+                                children: listMenu
+                                    .map((e) => Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 16),
+                                          child: MenuCard(
+                                              menu: e,
+                                              pressed: () => setState(() {
+                                                    selectedIndex = e.id;
+                                                  }),
+                                              total: e.question.length),
+                                        ))
+                                    .toList()),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('No Data');
                         }
                         return CircularProgressIndicator();
                       },
-                    ),
+                    )
                   ],
                 )),
     );

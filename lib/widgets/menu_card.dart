@@ -4,25 +4,20 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:quiz_app/constants.dart';
+import 'package:quiz_app/models/menuQuiz_model.dart';
 import 'package:quiz_app/models/question_model.dart';
 
 class MenuCard extends StatelessWidget {
-  const MenuCard({
-    Key? key,
-    required this.id,
-    required this.name,
-    required this.total,
-    required this.image,
-    required this.pressed,
-    required this.question,
-  }) : super(key: key);
+  const MenuCard(
+      {Key? key,
+      required this.menu,
+      required this.pressed,
+      required this.total})
+      : super(key: key);
 
-  final int id;
-  final String name;
-  final int total;
-  final String image;
-  final List<Question> question;
+  final Menu menu;
   final VoidCallback pressed;
+  final int total;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,9 +30,9 @@ class MenuCard extends StatelessWidget {
             color: neutral, borderRadius: BorderRadius.circular(16)),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           SizedBox(height: 16),
-          Image.asset(image, width: 48),
+          Image.asset(menu.image, width: 48),
           const SizedBox(height: 30),
-          Text(name,
+          Text(menu.name,
               style:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 2),
