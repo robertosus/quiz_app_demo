@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:quiz_app/providers/menu_provider.dart';
+import 'package:quiz_app/providers/question_provider.dart';
 import 'package:quiz_app/screens/home_screen.dart';
 
 import 'models/menuQuiz_model.dart';
@@ -21,14 +22,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => MenuProvider(),
-        child: MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => MenuProvider()),
+        ChangeNotifierProvider(create: (context) => QuestionProvider()),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
               textTheme:
-                  GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)),
-          debugShowCheckedModeBanner: false,
-          home: HomeScreen(),
-        ));
+                  GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+              useMaterial3: true),
+          home: HomeScreen()),
+    );
   }
 }
