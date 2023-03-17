@@ -19,11 +19,9 @@ bool changeWidget = false;
 bool isAlreadySelected = false;
 bool isPressed = false;
 int index = 0;
-int score = 0;
 String select = '';
 bool itsDone = false;
 String? getData;
-List<Question>? dataQuestion;
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({
@@ -58,9 +56,6 @@ class _QuizScreenState extends State<QuizScreen> {
       Future.delayed(
         Duration(milliseconds: 900),
         () {
-          if (value == true) {
-            score++;
-          }
           setState(() {
             isPressed = true;
             isAlreadySelected = true;
@@ -74,7 +69,6 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void startOver() {
     setState(() {
-      selectedIndex = -1;
       index = 0;
       isPressed = false;
       isAlreadySelected = false;

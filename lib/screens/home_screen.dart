@@ -12,7 +12,6 @@ import 'package:quiz_app/widgets/next_button.dart';
 import '../constants.dart';
 import '../models/menuQuiz_model.dart';
 
-bool playQuiz = true;
 List<Menu> listMenu = [];
 int? selectedIndex;
 
