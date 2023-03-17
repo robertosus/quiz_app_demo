@@ -6,14 +6,13 @@ import 'package:quiz_app/screens/home_screen.dart';
 class QuestionProvider extends ChangeNotifier {
   //! Private variable
   bool? _pressed;
-  bool _alreadyPressed = false;
+
   String? _select;
   int _index = 0;
   bool _quizDone = false;
   bool _changeWidget = false;
 
   //! Access variable
-  bool get alreadyPressed => _alreadyPressed;
   bool? get isPressed => _pressed;
   String? get select => _select;
   int get index => _index;
@@ -31,7 +30,6 @@ class QuestionProvider extends ChangeNotifier {
       notifyListeners();
     } else if (isPressed == true) {
       _index++;
-      _alreadyPressed = false;
       setPressed = false;
       _changeWidget = false;
       notifyListeners();
@@ -39,14 +37,10 @@ class QuestionProvider extends ChangeNotifier {
   }
 
   checkAnswerQuestion(String answer) {
-    if (alreadyPressed) {
-      notifyListeners();
-    }
     Future.delayed(
       Duration(seconds: 1),
       () {
         setPressed = true;
-        _alreadyPressed = true;
         _changeWidget = !_changeWidget;
         setTextData = answer;
         notifyListeners();
@@ -57,7 +51,6 @@ class QuestionProvider extends ChangeNotifier {
   startOver() {
     _index = 0;
     setPressed = false;
-    _alreadyPressed = false;
     _changeWidget = false;
     selectedIndex = null;
     _quizDone = false;
